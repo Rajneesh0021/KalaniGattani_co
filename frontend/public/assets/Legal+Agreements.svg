@@ -1,0 +1,15 @@
+<svg width="23" height="30" viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.755859" y="1.18555" width="21.6615" height="27.7538" rx="2.2" fill="white" stroke="#022B50" stroke-width="0.66"/>
+<path d="M14.8691 10.1512L16.8579 5.30371L18.3494 10.1512" stroke="#231F20" stroke-width="0.24859" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.17969 10.1512L6.16841 5.30371L7.65995 10.1512" stroke="#231F20" stroke-width="0.24859" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.23633 5.24219H17.4794" stroke="#231F20" stroke-width="0.24859" stroke-linecap="round"/>
+<path d="M6.85352 14.999H15.8028" stroke="#231F20" stroke-width="0.24859" stroke-linecap="round"/>
+<path d="M5 18.999H18" stroke="#022B50" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M5 21H18" stroke="#022B50" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M5 23H18" stroke="#022B50" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M5 25H18" stroke="#022B50" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M11.3262 3.99902V14.937" stroke="#231F20" stroke-width="0.24859" stroke-linecap="round"/>
+<path d="M19.5313 10.1522C19.5313 10.495 19.4558 10.8344 19.309 11.1511C19.1622 11.4677 18.947 11.7555 18.6758 11.9979C18.4046 12.2403 18.0826 12.4325 17.7282 12.5637C17.3738 12.6949 16.994 12.7624 16.6104 12.7624C16.2268 12.7624 15.847 12.6949 15.4926 12.5637C15.1382 12.4325 14.8162 12.2403 14.545 11.9979C14.2737 11.7555 14.0586 11.4677 13.9118 11.1511C13.765 10.8344 13.6895 10.495 13.6895 10.1522L16.6104 10.1522H19.5313Z" fill="#CCD5DC" stroke="#231F20" stroke-width="0.24859" stroke-linejoin="round"/>
+<path d="M8.84186 10.1522C8.84186 10.495 8.76631 10.8344 8.61952 11.1511C8.47273 11.4677 8.25758 11.7555 7.98634 11.9979C7.71511 12.2403 7.39311 12.4325 7.03872 12.5637C6.68434 12.6949 6.30451 12.7624 5.92093 12.7624C5.53735 12.7624 5.15752 12.6949 4.80314 12.5637C4.44876 12.4325 4.12675 12.2403 3.85552 11.9979C3.58429 11.7555 3.36913 11.4677 3.22234 11.1511C3.07555 10.8344 3 10.495 3 10.1522L5.92093 10.1522H8.84186Z" fill="#CCD5DC" stroke="#231F20" stroke-width="0.24859" stroke-linejoin="round"/>
+<circle cx="11.2786" cy="5.2962" r="0.74577" fill="white" stroke="#231F20" stroke-width="0.124295"/>
+</svg>

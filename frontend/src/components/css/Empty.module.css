@@ -1,0 +1,47 @@
+.titleMiddle {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.imageSection {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  padding: 20px;
+  margin: auto;
+}
+
+.image {
+  max-width: 60%;
+}
+
+.noServicesMessage {
+  font-size: 18px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.exploreButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  width: fit-content;
+  margin: 2em auto;
+  text-decoration: none;
+}
+
+.exploreButton:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.buttonText {
+  margin-right: 10px;
+}
