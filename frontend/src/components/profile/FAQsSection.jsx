@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import FaqData from '../../data/data'; // Assuming the FAQ data is in this file
 
 const FAQsContainer = styled.div`
   padding: 0 20px;
@@ -25,8 +26,8 @@ const BoxList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 55vh; /* Set height to 80vh */
-  overflow-y: auto; /* Make it scrollable */
+  height: 55vh;
+  overflow-y: auto;
 `;
 
 const Box = styled.div`
@@ -80,31 +81,23 @@ const BackButton = styled.button`
 `;
 
 const DetailedContent = styled.div`
-  height: 55vh; /* Set height to 80vh */
-  overflow-y: auto; /* Make it scrollable */
+  height: 55vh;
+  overflow-y: auto;
 `;
 
 const FAQsSection = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState(null);
 
-  const topics = [
-    { id: 1, name: 'My Services' },
-    { id: 2, name: 'Account Information' },
-    { id: 3, name: 'Billing & Payments' },
-    { id: 1, name: 'My Services' },
-    { id: 2, name: 'Account Information' },
-    { id: 3, name: 'Billing & Payments' },
-    { id: 1, name: 'My Services' },
-    { id: 2, name: 'Account Information' },
-    { id: 3, name: 'Billing & Payments' },
-    { id: 1, name: 'My Services' },
-    { id: 2, name: 'Account Information' },
-    { id: 3, name: 'Billing & Payments' },
-  ];
+  const topics = Object.keys(FaqData);
 
-  const handleBoxClick = (topic) => {
-    setSelectedTopic(topic);
+  const handleBoxClick = (topicName) => {
+    const details = Object.entries(FaqData[topicName]).map(([question, answer]) => ({
+      question,
+      answer,
+      open: false,
+    }));
+    setSelectedTopic({ name: topicName, details });
     setShowDetails(true);
   };
 
@@ -129,19 +122,8 @@ const FAQsSection = () => {
           <div>
             <BoxList>
               {topics.map((topic) => (
-                <Box
-                  key={topic.id}
-                  onClick={() =>
-                    handleBoxClick({
-                      ...topic,
-                      details: [
-                        { question: 'How can I manage my services?', open: false },
-                        { question: 'What services do I have?', open: false }
-                      ]
-                    })
-                  }
-                >
-                  <BoxText>{topic.name}</BoxText>
+                <Box key={topic} onClick={() => handleBoxClick(topic)}>
+                  <BoxText>{topic}</BoxText>
                   <FaArrowRight />
                 </Box>
               ))}
@@ -158,7 +140,7 @@ const FAQsSection = () => {
             {selectedTopic.details.map((detail, index) => (
               <DropdownBox key={index} onClick={() => handleDropdownClick(index)}>
                 <DropdownText>{detail.question}</DropdownText>
-                {detail.open && <p>Here is a detailed explanation about the topic.</p>}
+                {detail.open && <p dangerouslySetInnerHTML={{ __html: detail.answer }}></p>}
               </DropdownBox>
             ))}
           </DetailedContent>
