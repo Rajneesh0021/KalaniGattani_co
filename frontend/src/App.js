@@ -11,6 +11,9 @@ import About from './Pages/About';
 import Contact from './Pages/Contact';
 import ExploreServices from './Pages/ExploreServices';
 import Profile from './Pages/Profile';
+import TicketStatusPage from './Pages/Status';
+import MessagePage from './Pages/MessagePage';
+import PaymentPage from './Pages/PaymentPage';
 
 const Content = styled.div`
   margin-left: 10%;
@@ -38,7 +41,9 @@ const App = () => {
           <Route path="/profile/*" element={<Profile/>}>
           
           </Route>
-        
+          <Route path="/ticket-status/:ticketId" element={<TicketStatusPage/>}/>
+          <Route path='/message/:ticketId' element={<MessagePage/>}/>
+          <Route path='/paynow/:ticketId' element={<PaymentPage/>}/>
         </Routes>
       </Content>
     </Router>

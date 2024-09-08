@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa'; 
 import styles from './css/HomeSectionOne.module.css'; // Import CSS Module
 import ServiceDescPopup from './ServiceDescPopup';
 import LoginSignupPop from './LoginSignupPop';
+import { AuthContext } from '../context/AuthContext'; // Import AuthContext
 
 const HomeSectionOne = () => {
+  const { isLoggedIn, user } = useContext(AuthContext); // Get the login status and user data from AuthContext
+  const [selectedService, setSelectedService] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [selectedExpert, setSelectedExpert] = useState(null); // State for selected expert
+
+  // Mocked data for services, you can replace this with dynamic service data
   const popularServices = [
     { id: 1, img: './assets/Company+Inc.svg', text: 'Online Company Registration', description: 'Detailed information about Online Company Registration.' },
     { id: 2, img: './assets/trademark-registration.svg', text: 'Trademark Registration', description: 'Detailed information about Trademark Registration.' },
@@ -14,22 +21,52 @@ const HomeSectionOne = () => {
     { id: 5, img: './assets/GST+Registration.svg', text: 'GST Registration', description: 'Detailed information about GST Registration.' },
   ];
 
-  const [selectedService, setSelectedService] = useState(null);
-  const [showLogin, setShowLogin] = useState(false);
+  const experts = [
+    { id: 1, img: './assets/expert.svg', text: 'Talk to Lawyer', description: 'Get legal advice from an expert lawyer.' },
+    { id: 2, img: './assets/expert.svg', text: 'Talk to CA', description: 'Get accounting advice from a certified accountant.' },
+    { id: 3, img: './assets/expert.svg', text: 'Talk to CS', description: 'Get company secretarial services from an expert.' },
+  ];
+
+  // Function to get the count of ongoing services from localStorage
+  const getOngoingServicesCount = () => {
+    const registeredServices = JSON.parse(localStorage.getItem('registeredServices')) || [];
+    return registeredServices.filter(service => service.status === 'ongoing').length;
+  };
+
+  const activeServicesCount = getOngoingServicesCount();
+
   const handleServiceClick = (service) => {
     setSelectedService(service);
+  };
+
+  const handleExpertClick = (expert) => {
+    setSelectedExpert(expert);
+    // Here, you might want to open the popup for the selected expert
   };
 
   return (
     <>
       <div className={styles.sectionOne}>
         <div className={styles.welcomeBox}>
-          <FaSignInAlt className={styles.loginIcon} />
-          <div className={styles.welcomeText}>
-            <h3 className={styles.heading}>Welcome to Kalani Gattani & Company</h3>
-            <p className={styles.subHeading}>To get full access to the features</p>
-          </div>
-          <button className={styles.loginButton } onClick={() => setShowLogin(!showLogin)}>Login / Signup</button>
+          {!isLoggedIn ? (
+            <>
+              <FaSignInAlt className={styles.loginIcon} />
+              <div className={styles.welcomeText}>
+                <h3 className={styles.heading}>Welcome to Kalani Gattani & Company</h3>
+                <p className={styles.subHeading}>To get full access to the features</p>
+              </div>
+              <button className={styles.loginButton} onClick={() => setShowLogin(!showLogin)}>Login / Signup</button>
+            </>
+          ) : (
+            <>
+              <div className={styles.welcomeText}>
+                <h3 className={styles.heading}>Welcome, {user.name}</h3>
+                <p className={styles.subHeading}>
+                  You have <strong>{activeServicesCount}</strong> ongoing services.
+                </p>
+              </div>
+            </>
+          )}
         </div>
 
         <h3 className={styles.exploreHeading}>Explore Services</h3>
@@ -69,31 +106,22 @@ const HomeSectionOne = () => {
           </h3>
 
           <div className={styles.expertsLayout}>
-            <div className={styles.fullHeightBox}>
-              <img src="./assets/expert.svg" alt="Expert Image" className={styles.image} />
-              <p className={styles.text}>Talk to Lawyer</p>
-            </div>
-            <div className={styles.halfWidthBoxes}>
-              <div className={styles.halfWidthBox}>
-                <img src="./assets/expert.svg" alt="Expert" className={styles.imageHalf} />
-                <p className={styles.text}>Talk to CA</p>
+            {experts.map((expert) => (
+              <div className={styles.expertBox} key={expert.id} onClick={() => handleExpertClick(expert)}>
+                <img src={expert.img} alt={expert.text} className={styles.expertImage} />
+                <p className={styles.expertText}>{expert.text}</p>
               </div>
-              <div className={styles.halfWidthBox}>
-                <img src="./assets/expert.svg" alt="Expert" className={styles.imageHalf} />
-                <p className={styles.text}>Talk to CS</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
-      {showLogin && (
-        <LoginSignupPop/>
-      )}
-      {selectedService && (
-        <ServiceDescPopup selectedService={selectedService} setSelectedService={setSelectedService} />
-      )}
+
+      {showLogin && <LoginSignupPop />}
+      
+      {selectedService && <ServiceDescPopup selectedService={selectedService} setSelectedService={setSelectedService} />}
+      {selectedExpert && <ServiceDescPopup selectedService={selectedExpert} setSelectedService={setSelectedExpert} />}
     </>
   );
-}
+};
 
 export default HomeSectionOne;

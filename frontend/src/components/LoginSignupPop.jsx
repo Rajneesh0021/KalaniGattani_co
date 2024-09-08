@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
+import Swal from 'sweetalert2';
 
 // Styled Components
 const Overlay = styled.div`
@@ -80,7 +81,6 @@ const LoginSignupPop = () => {
         name: mobileNumber,
         phone: mobileNumber,
         email: `${mobileNumber}@KGC.com`,
-        profileImage: `https://via.placeholder.com/120?text=${mobileNumber.charAt(0)}` // First digit of phone number as profile image
       };
 
       localStorage.setItem('isLoggedIn', 'true');
@@ -89,9 +89,21 @@ const LoginSignupPop = () => {
       login(userData); // Update AuthContext with the logged-in user data
 
       setShowPopup(false);
-      alert('Logged in successfully!');
+      Swal.fire({
+        title: 'Login Successful!',
+        text: 'Welcome back, you have logged in successfully.',
+        icon: 'success',
+        confirmButtonText: 'Continue',
+        confirmButtonColor: '#4caf50',
+      });
     } else {
-      alert('Invalid OTP');
+      Swal.fire({
+        title: 'Error!',
+        text:'Wrong OTP !',
+        icon: 'error',
+        confirmButtonText: 'Retry',
+        confirmButtonColor: '#f44336',
+      });
     }
   };
 

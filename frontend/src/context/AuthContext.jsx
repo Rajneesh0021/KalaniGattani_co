@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import Swal from 'sweetalert2';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -29,7 +29,13 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userData');
-    alert('Logged Out');
+    Swal.fire({
+      title: 'Logged Out',
+      text: 'You have been logged out successfully.',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#2196f3',
+    });
   };
 
   return (

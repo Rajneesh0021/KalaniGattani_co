@@ -13,9 +13,8 @@ const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 20px 0 0;
   background-color: white;
-  color: black;
   z-index: 1;
 `;
 
@@ -30,14 +29,15 @@ const ProfileDropdown = styled.div`
   right: 20px;
   width: 15%;
   z-index: 9;
-  background-color: black;
+  background-color: white;
   padding: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5em;
-  border-radius: 20px;
-  color: white;
+ 
+  color: black;
+   box-shadow: -5px 5px 38px #d9d9d9, 5px -5px 38px #ffffff;
   @media (max-width: 1186px) {
     width: 25%;
   }
@@ -76,7 +76,7 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <div className="logo">Kalani Gattani & co</div>
+      <div className="logo"><img src="../icon.png" alt="" /></div>
       <div className="circlecover">
         {isLoggedIn ? (
           <div>

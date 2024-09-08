@@ -106,12 +106,12 @@ const ActionButton = styled.button`
   border: none;
 
   &:nth-child(1) {
-    background-color: #007bff;
+    background-color: #3e19e2;
     color: white;
   }
 
   &:nth-child(2) {
-    background-color: #28a745;
+    background-color: #3e19e2;
     color: white;
   }
 `;

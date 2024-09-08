@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
-import FaqData from '../../data/data'; // Assuming the FAQ data is in this file
+import {FaqData} from '../../data/data'; // Assuming the FAQ data is in this file
 
 const FAQsContainer = styled.div`
   padding: 0 20px;

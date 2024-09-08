@@ -1,43 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa'; // Icon for arrow
 import ServiceDescPopup from './ServiceDescPopup';
 import styles from './css/ExServices.module.css'; // Import CSS Module
+import { individual, business } from '../data/data';
 
 const ExServices = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedService, setSelectedService] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredServices, setFilteredServices] = useState([]);
 
   // Get the current 'type' from the URL params (either 'individual' or 'business')
   const type = searchParams.get('type') || 'individual'; 
 
-  const individual = [
-    { img: './assets/individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
-    { img: './assets/individual.svg', text: 'Aadhaar Card', _id: '2', description: 'Details about Aadhaar Card service...' },
-    { img: './assets/individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
-    { img: './assets/individual.svg', text: 'Aadhaar Card', _id: '2', description: 'Details about Aadhaar Card service...' },
-    { img: './assets/individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
-    { img: './assets/individual.svg', text: 'Aadhaar Card', _id: '2', description: 'Details about Aadhaar Card service...' },
-    { img: './assets/individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
-    { img: './assets/individual.svg', text: 'Aadhaar Card', _id: '2', description: 'Details about Aadhaar Card service...' },
-    // Additional items...
-  ];
-
-  const business = [
-    { img: './assets/business.svg', text: 'GST Registration', _id: '1', description: 'Details about GST Registration service...' },
-    { img: './assets/business.svg', text: 'Company Incorporation', _id: '2', description: 'Details about Company Incorporation service...' },
-    // Additional items...
-  ];
+  const services = type === 'individual' ? individual : business;
 
   const handleButtonClick = (selectedType) => {
     setSearchParams({ type: selectedType });
   };
 
-  const services = type === 'individual' ? individual : business;
-
   const handleCardClick = (service) => {
     setSelectedService(service);
   };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  useEffect(() => {
+    // Filter services based on the search query and type
+    const lowercasedQuery = searchQuery.toLowerCase();
+    const filtered = services.filter(service =>
+      service.text.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredServices(filtered);
+  }, [searchQuery, services]);
 
   return (
     <div className={styles.sectionOne}>
@@ -57,12 +55,18 @@ const ExServices = () => {
           </button>
         </div>
         <div className={styles.searchBox}>
-          <input type="text" placeholder="Search services..." className={styles.searchInput} />
+          <input
+            type="text"
+            placeholder="Search services..."
+            className={styles.searchInput}
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
         </div>
       </div>
       <hr />
       <div className={styles.servicesGrid}>
-        {services.map((service) => (
+        {filteredServices.map((service) => (
           <div
             key={service._id}
             className={styles.serviceCard}

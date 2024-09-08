@@ -33,7 +33,7 @@ const UserName = styled.h2`
 
 const UserDetail = styled.p`
   font-size: 16px;
-  color: #ddd;
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -50,9 +50,9 @@ const LinkItem = styled(Link)`
   align-items: center;
   padding: 10px 0;
   text-decoration: none;
-  color: white;
+ border-bottom: 1px solid #ddd;
   &:hover {
-    background-color: #2c09ca;
+    text-decoration:underline;
   }
 `;
 
@@ -74,7 +74,7 @@ const SubMenu = () => {
       {user && (
         <>
           <ProfileImageContainer>
-            <ProfileImage src={user.profileImage} alt="Profile" />
+            <ProfileImage src={`https://via.placeholder.com/120?text=${user.name.charAt(0)}`} alt="Profile" />
             <PencilIcon />
           </ProfileImageContainer>
 

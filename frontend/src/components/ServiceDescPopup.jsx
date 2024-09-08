@@ -2,6 +2,7 @@ import React, { useState,useContext } from 'react';
 import { MdClose, MdInfoOutline } from 'react-icons/md'; 
 import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
+import Swal from 'sweetalert2';
 const PopupOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -229,7 +230,13 @@ const ServiceDescPopup = ({ selectedService, setSelectedService }) => {
     // Store the updated array in localStorage
     localStorage.setItem('registeredServices', JSON.stringify(updatedServices));
   
-    alert(`Service Registered! Ticket ID: ${ticketID}`);
+    Swal.fire({
+      title: 'Registration Successful!',
+      text: `Service Registered! Ticket ID: ${ticketID}`,
+      icon: 'success',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#4caf50',
+    });
   };
   
 

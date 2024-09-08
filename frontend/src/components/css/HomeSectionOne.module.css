@@ -38,7 +38,7 @@
 }
 
 .loginButton {
-  background-color: #007bff;
+  background-color: #311B92;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -49,7 +49,7 @@
 }
 
 .loginButton:hover {
-  background-color: #0056b3;
+  background-color: #3e19e2;
 }
 
 .exploreHeading {
@@ -101,7 +101,7 @@
 }
 
 .viewAllLink {
-  color: #007bff;
+  color: #311B92;
   cursor: pointer;
 }
 
@@ -113,7 +113,8 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  overflow: hidden;
+  gap: 10px;
+  overflow-x: auto
 }
 
 .serviceBox {
@@ -159,66 +160,49 @@
   text-align: center;
 }
 
+
+/* Expert Boxes Container */
 .expertsLayout {
   display: flex;
-  margin-top: 20px;
-}
-
-.fullHeightBox {
-  flex: 0 0 30%;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer;
-}
-
-.fullHeightBox:last-child {
-  margin-bottom: 0;
-}
-
-.halfWidthBoxes {
-  flex: 0 0 60%;
-  display: flex;
-  flex-direction: column;
-}
-
-.halfWidthBox {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+/* Individual Expert Box */
+.expertBox {
+  flex: 1;
+  margin: 0 10px;
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1), 5px -5px 20px rgba(255, 255, 255, 0.5);
   text-align: center;
-  margin-bottom: 20px;
   cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.halfWidthBox:last-child {
-  margin-bottom: 0;
+.expertBox:hover {
+  transform: scale(1.05);
+  box-shadow: -5px 5px 30px rgba(0, 0, 0, 0.2), 5px -5px 30px rgba(255, 255, 255, 0.7);
 }
 
-.halfWidthBoxMobile {
-  flex-direction: column;
+/* Expert Image */
+.expertImage {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  object-fit: cover;
 }
 
-.image {
-  width: 4em;
-  height: 4em;
+/* Expert Text */
+.expertText {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
 }
 
-.imageHalf {
-  width: 2em;
-  height: 2em;
-}
-
-.text {
-  font-size: 15px;
-  font-weight: bold;
-}
 @media (max-width:900px) {
   .sectionOne {
     
@@ -251,5 +235,8 @@
   .image {
     width: 2em;
     height: 2em;
+  }
+  .expertsLayout {
+ flex-direction: column;
   }
 }
