@@ -187,13 +187,13 @@ const TicketStatusPage = () => {
           <Title>{serviceName}</Title>
         </LeftSection>
         <RightSection>
-          <ReportIssue onClick={() => navigate('/profile/help')}>
+          <ReportIssue onClick={() => navigate(`/profile/${ticketId}`)}>
             <FaExclamationTriangle /> Report an issue
           </ReportIssue>
         </RightSection>
       </Header>
       <TicketNumber>Ticket no {ticketId}</TicketNumber>
-      <MessageButton onClick={() => navigate('/message/help')}>
+      <MessageButton onClick={() => navigate(`/message/${ticketId}`)}>
         <FaEnvelope /> Message
       </MessageButton>
       <ProcessSection>
