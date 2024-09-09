@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaExclamationTriangle, FaEnvelope } from 'react-icons/fa'; 
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'; 
+import { FaExclamationTriangle, FaEnvelope } from 'react-icons/fa';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-// Styled components (unchanged)
+import Popup from '../components/Popup'; 
+import Swal from 'sweetalert2';
+
+// SweetAlert2 with React
+// const MySwal = Swal;
+
 const Container = styled.div`
-  padding: 20px;
-  background:white;
+ padding: 20px ;
+  @media (max-width: 900px) {
+    padding: 20px 0;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
+ 
+  text-align: left;
+  margin-top: 30px ;
 `;
 
 const LeftSection = styled.div`
@@ -25,8 +40,9 @@ const RightSection = styled.div`
   text-align: right;
 `;
 
-const Title = styled.h3`
-  margin-bottom: 10px;
+const PageTitle = styled.h3`
+    text-align: left;
+  margin-top: 30px ;
 `;
 
 const TicketNumber = styled.p`
@@ -70,12 +86,13 @@ const ProcessHeading = styled.h2`
 
 const ProcessStep = styled.div`
   display: flex;
-  align-items: flex-start;
+  
   margin-bottom: 20px;
+  align-items: baseline;
 `;
 
 const VerticalLine = styled.div`
-  position: relative;
+ 
   width: 2px;
   background-color: #ddd;
   height: 100%;
@@ -83,9 +100,7 @@ const VerticalLine = styled.div`
 `;
 
 const Circle = styled.div`
-  position: absolute;
-  top: ${props => props.top}%;
-  left: -6px;
+ 
   width: 12px;
   height: 12px;
   background-color: ${props => props.isCompleted ? '#311b92' : '#bbb'};
@@ -102,6 +117,7 @@ const StepTitle = styled.div`
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+  color: ${props => props.isCompleted ? '#311b92' : '#bbb'};
   cursor: pointer;
 `;
 
@@ -110,6 +126,7 @@ const StepDescription = styled.div`
   font-size: 16px;
   display: ${props => (props.isOpen ? 'block' : 'none')};
   line-height: 1.6;
+ 
 `;
 
 const PayNowButton = styled.button`
@@ -127,41 +144,38 @@ const PayNowButton = styled.button`
   }
 `;
 
-// Main component
 const TicketStatusPage = () => {
-  const { ticketId } = useParams(); // Extract ticketId from URL
+  const { ticketId } = useParams();
   const [serviceData, setServiceData] = useState(null);
   const [serviceName, setServiceName] = useState('');
-  const [openSteps, setOpenSteps] = useState([false, false, false, false, false, false]);
+  const [openSteps, setOpenSteps] = useState([false, false, false, false, false]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Control Popup visibility
+  const [popupTitle, setPopupTitle] = useState('');
+
   const navigate = useNavigate();
 
-  // Fetch service data based on ticketId and fetch service name from localStorage
   useEffect(() => {
     const fetchServiceData = () => {
-      // Get registered services from localStorage
       const registeredServices = JSON.parse(localStorage.getItem('registeredServices'));
 
-      // Find the specific service based on ticketId
       const currentService = registeredServices?.find(service => service.ticketID === parseInt(ticketId));
 
-      // If service is found, update service name and mock data
       if (currentService) {
         setServiceName(currentService.serviceName);
-        // Simulate fetching process steps data
         const data = {
           id: ticketId,
           status: 'In Progress',
           process: [
-            { title: 'Payment', description: 'Your payment is pending for this service. Click "Pay now" to proceed further.', status: 'Pending', hasButton: true },
-            { title: 'Application Filing', status: 'Pending' },
-            { title: 'Review by Team', status: 'Pending' },
-            { title: 'Approval', status: 'Pending' },
-            { title: 'Completion', status: 'Pending' }
+            { title: 'Payment', description: 'Your payment is pending for this service. Click "Pay now" to proceed further.', status: 'Completed', hasButton: true, btntext: 'Pay Now' },
+            { title: 'Application Filing', description: 'Please upload the necessary documents to file the application.', status: 'Pending', hasButton: true, btntext: 'Upload Docs', buttonAction: 'fileApplication' },
+            { title: 'Review by Team', description: 'Our team is reviewing your submission. You will be notified once the review is complete.', status: 'Pending' },
+            { title: 'Approval', description: 'Your application is under approval. You will be informed of the outcome.', status: 'Pending' },
+            { title: 'Completion', description: 'Your service request will be marked as completed once all steps are done.', status: 'Pending' }
           ]
         };
         setServiceData(data);
       } else {
-        setServiceName('Service not found'); // Fallback if no service is found
+        setServiceName('Service not found');
       }
     };
 
@@ -180,14 +194,29 @@ const TicketStatusPage = () => {
     });
   };
 
+  // Handle step actions
+  const handleStepAction = (action) => {
+    if (action === 'fileApplication') {
+      setPopupTitle(`${serviceName} Docs Application`);
+      setIsPopupOpen(true); 
+    } else if (action === 'payment') {
+      navigate(`/paynow/${ticketId}`)
+    }
+  };
+
+  const handlePopupSubmit = (formData) => {
+    Swal.fire('Documents submitted');
+    setIsPopupOpen(false); 
+  };
+
   return (
     <Container>
       <Header>
         <LeftSection>
-          <Title>{serviceName}</Title>
+          <PageTitle>{serviceName}</PageTitle>
         </LeftSection>
         <RightSection>
-          <ReportIssue onClick={() => navigate(`/profile/${ticketId}`)}>
+          <ReportIssue onClick={() => navigate(`/profile/help`)}>
             <FaExclamationTriangle /> Report an issue
           </ReportIssue>
         </RightSection>
@@ -204,18 +233,26 @@ const TicketStatusPage = () => {
               <Circle top={index * 20} isCompleted={step.status === 'Completed'} />
             </VerticalLine>
             <StepContent>
-              <StepTitle onClick={() => toggleStep(index)}>
+              <StepTitle onClick={() => toggleStep(index)} isCompleted={step.status === 'Completed'}>
                 {step.title}
                 {openSteps[index] ? <IoIosArrowUp /> : <IoIosArrowDown />}
               </StepTitle>
               <StepDescription isOpen={openSteps[index]}>
                 {step.description}
-                {step.hasButton && <PayNowButton onClick={() => console.log('Proceed to payment')}>Pay now</PayNowButton>}
+                {step.hasButton && <PayNowButton onClick={() => handleStepAction(step.buttonAction || 'payment')}>{step.btntext}</PayNowButton>}
               </StepDescription>
             </StepContent>
           </ProcessStep>
         ))}
       </ProcessSection>
+
+      {/* Popup component */}
+      <Popup
+        title={popupTitle}
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onSubmit={handlePopupSubmit}
+      />
     </Container>
   );
 };

@@ -70,7 +70,7 @@ const FaqData={
     'Where do I share my doubts and queries?':'You can ask doubts to the assigned representative for your service. In case of general queries, please write to us at services@kgc.com. We will get back to you in 2-3 business days.'
   }
 }
-const Individual=[
+const individual=[
   { img: '../assets/Individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
   { img: '../assets/Individual.svg', text: 'ISI Registration', _id: '2', description: 'Details about Aadhaar Card service...' },
   { img: '../assets/Individual.svg', text: 'Online Name Change', _id: '3', description: 'Details about PAN Number service...' },
@@ -320,4 +320,4 @@ const business=[
   { id: 211, img: '../assets/Company+Inc.svg', text: 'Company Registration in Hong Kong for Foreign National', description: 'Details about Company Registration in Hong Kong for Foreign National.' },
   { id: 212, img: '../assets/Company+Inc.svg', text: 'Business Registration in Hong Kong for Foreign National', description: 'Details about Business Registration in Hong Kong for Foreign National.' }
  ]
-export {FaqData,Individual,business};
+export {FaqData,individual,business};

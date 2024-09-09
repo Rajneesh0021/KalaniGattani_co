@@ -88,7 +88,7 @@ const LinkedInIcon = styled.a`
   font-size: 24px;
 `;
 
-const About = () => {
+const AboutPage = () => {
   return (
     <AboutUsContainer>
       <PageTitle>About Us</PageTitle>
@@ -155,4 +155,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;

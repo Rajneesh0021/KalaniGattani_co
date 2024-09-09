@@ -7,17 +7,16 @@ import styled from 'styled-components';
 // Styled components
 const Container = styled.div`
   padding: 20px;
-  max-width: 800px;
+
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: -5px 5px 38px #d9d9d9, 5px -5px 38px #ffffff;
 `;
 
-const Title = styled.h1`
-
-  margin-top: 40px;
-  color: #311b92;
+const Title = styled.h3`
+  text-align: left;
+  margin-top: 30px ;
 `;
 
 const PaymentWrapper = styled.div`
@@ -29,13 +28,13 @@ const PaymentWrapper = styled.div`
 `;
 
 const PaymentTitle = styled.h3`
-  font-size: 24px;
+  
   margin-bottom: 10px;
   color: #3e19e2;
 `;
 
 const PaymentInfo = styled.p`
-  font-size: 18px;
+  
   margin-bottom: 5px;
 `;
 

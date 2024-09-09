@@ -14,10 +14,9 @@ const Container = styled.div`
   box-shadow: -5px 5px 38px #d9d9d9, 5px -5px 38px #ffffff;
 `;
 
-const Title = styled.h1`
-
-  margin-top: 40px;
-  color: #311b92;
+const Title = styled.h3`
+  text-align: left;
+  margin-top: 30px ;
 `;
 
 const MessageWrapper = styled.div`
@@ -29,13 +28,13 @@ const MessageWrapper = styled.div`
 `;
 
 const MessageTitle = styled.h3`
-  font-size: 24px;
+ 
   margin-bottom: 10px;
   color: #3e19e2;
 `;
 
 const MessageText = styled.p`
-  font-size: 18px;
+ 
   line-height: 1.6;
   margin-bottom: 15px;
 `;

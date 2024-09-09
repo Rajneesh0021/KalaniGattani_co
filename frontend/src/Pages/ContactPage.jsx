@@ -5,14 +5,12 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaArrowRight } from 'react-icons/f
 const ServicesContainer = styled.div`
   padding: 20px;
   text-align: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  
 `;
 
 const PageTitle = styled.h3`
-  text-align: left;
-  margin-top: 30px;
-  font-size: 36px;
+    text-align: left;
+  margin-top: 30px ;
 `;
 
 const SectionWrapper = styled.div`
@@ -138,19 +136,19 @@ const Contact = () => {
         <ContactInfo>
           <InfoBox>
             <InfoIcon><FaPhone /></InfoIcon>
-            <InfoText>+123 456 7890</InfoText>
+            <InfoText>+91 90151 81245</InfoText>
             <Description>Call us for immediate assistance</Description>
           </InfoBox>
 
           <InfoBox>
             <InfoIcon><FaEnvelope /></InfoIcon>
-            <InfoText>info@kgc.com</InfoText>
+            <InfoText>office@kgcmail.com</InfoText>
             <Description>Email us for any inquiries</Description>
           </InfoBox>
 
           <InfoBox>
             <InfoIcon><FaMapMarkerAlt /></InfoIcon>
-            <InfoText>1234 Business Ave</InfoText>
+            <InfoText>Jaipur, Delhi</InfoText>
             <Description>Visit us at our office</Description>
           </InfoBox>
         </ContactInfo>
