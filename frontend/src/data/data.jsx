@@ -10,7 +10,7 @@ const FaqData={
 
     'Where do I find the status of my service?':'Check My Services to find the current and next milestone for your service. If you need more information, get in touch with the recent point of contact of the service.',
 
-    'How do I track combo services?':'All the services of the combo pack will be displayed under My Services as individual service. You can track the status the same way you would do for an individual service.'
+    'How do I track combo services?':'All the services of the combo pack will be displayed under My Services as Individual service. You can track the status the same way you would do for an Individual service.'
   },
   'Compliance Calender':{
 'What are the compliances included?':'We have listed down all the general compliance applicable to businesses. We request you to use the filters provided to narrow down the compliance applicable for you. We update the information periodically, thus changes might take time to reflect. We recommend you to get in touch with us to know more about a compliance which is crucial to your business.',
@@ -70,40 +70,40 @@ const FaqData={
     'Where do I share my doubts and queries?':'You can ask doubts to the assigned representative for your service. In case of general queries, please write to us at services@kgc.com. We will get back to you in 2-3 business days.'
   }
 }
-const individual=[
-  { img: '../assets/individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
-  { img: '../assets/individual.svg', text: 'ISI Registration', _id: '2', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Online Name Change', _id: '3', description: 'Details about PAN Number service...' },
-  { img: '../assets/individual.svg', text: 'Birth Certificate', _id: '4', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Marriage Certificate', _id: '5', description: 'Details about PAN Number service...' },
-  { img: '../assets/individual.svg', text: 'Make a Will', _id: '6', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Residential Rental Agreement', _id: '7', description: 'Details about PAN Number service...' },
-  { img: '../assets/individual.svg', text: 'Gift Deed', _id: '8', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Apply for a Mutual Divorce', _id: '9', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Apply for Succession Certificate', _id: '10', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Court Marriage', _id: '11', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Legal Heir Certificate', _id: '12', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Apply for Name Change - Minor', _id: '13', description: 'Details about Aadhaar Card service...' },{ img: '../assets/individual.svg', text: 'Religion Change', _id: '14', description: 'Details about Aadhaar Card service...'},
-   { img: '../assets/individual.svg', text: 'Gender Change', _id: '15', description: 'Details about Aadhaar Card service...'},
-   { img: '../assets/individual.svg', text: 'Public Notice - Gazette', _id: '16', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'IT Return Filing for Salaried Individuals', _id: '17', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Talk to a Lawyer', _id: '18', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Talk to a CA', _id: '19', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Talk to a CS', _id: '20', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Website Development', _id: '21', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Well Known Trade Mark', _id: '22', description: 'Details about Aadhaar Card service...' },
+const Individual=[
+  { img: '../assets/Individual.svg', text: 'PAN Number', _id: '1', description: 'Details about PAN Number service...' },
+  { img: '../assets/Individual.svg', text: 'ISI Registration', _id: '2', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Online Name Change', _id: '3', description: 'Details about PAN Number service...' },
+  { img: '../assets/Individual.svg', text: 'Birth Certificate', _id: '4', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Marriage Certificate', _id: '5', description: 'Details about PAN Number service...' },
+  { img: '../assets/Individual.svg', text: 'Make a Will', _id: '6', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Residential Rental Agreement', _id: '7', description: 'Details about PAN Number service...' },
+  { img: '../assets/Individual.svg', text: 'Gift Deed', _id: '8', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Apply for a Mutual Divorce', _id: '9', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Apply for Succession Certificate', _id: '10', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Court Marriage', _id: '11', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Legal Heir Certificate', _id: '12', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Apply for Name Change - Minor', _id: '13', description: 'Details about Aadhaar Card service...' },{ img: '../assets/Individual.svg', text: 'Religion Change', _id: '14', description: 'Details about Aadhaar Card service...'},
+   { img: '../assets/Individual.svg', text: 'Gender Change', _id: '15', description: 'Details about Aadhaar Card service...'},
+   { img: '../assets/Individual.svg', text: 'Public Notice - Gazette', _id: '16', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'IT Return Filing for Salaried Individuals', _id: '17', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Talk to a Lawyer', _id: '18', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Talk to a CA', _id: '19', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Talk to a CS', _id: '20', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Website Development', _id: '21', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Well Known Trade Mark', _id: '22', description: 'Details about Aadhaar Card service...' },
 
-  { img: '../assets/individual.svg', text: 'eFIR', _id: '23', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Firearm/Gun License', _id: '24', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Digital Marketing Service', _id: '25', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'KGCX Accelerator Program', _id: '26', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Expert Assisted Trademark Search', _id: '27', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Video Production', _id: '28', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Graphic Design', _id: '29', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'DevOps as a Service', _id: '30', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Tech as a Service', _id: '31', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Branding', _id: '32', description: 'Details about Aadhaar Card service...' },
-  { img: '../assets/individual.svg', text: 'Expert Guidance for NGOs', _id: '33', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'eFIR', _id: '23', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Firearm/Gun License', _id: '24', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Digital Marketing Service', _id: '25', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'KGCX Accelerator Program', _id: '26', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Expert Assisted Trademark Search', _id: '27', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Video Production', _id: '28', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Graphic Design', _id: '29', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'DevOps as a Service', _id: '30', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Tech as a Service', _id: '31', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Branding', _id: '32', description: 'Details about Aadhaar Card service...' },
+  { img: '../assets/Individual.svg', text: 'Expert Guidance for NGOs', _id: '33', description: 'Details about Aadhaar Card service...' },
 
 ]
 const business=[
@@ -320,4 +320,4 @@ const business=[
   { id: 211, img: '../assets/Company+Inc.svg', text: 'Company Registration in Hong Kong for Foreign National', description: 'Details about Company Registration in Hong Kong for Foreign National.' },
   { id: 212, img: '../assets/Company+Inc.svg', text: 'Business Registration in Hong Kong for Foreign National', description: 'Details about Business Registration in Hong Kong for Foreign National.' }
  ]
-export {FaqData,individual,business};
+export {FaqData,Individual,business};
