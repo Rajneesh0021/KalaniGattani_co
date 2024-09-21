@@ -6,7 +6,6 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Load user data from localStorage on component mount
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
     const storedUserData = JSON.parse(localStorage.getItem('userData'));

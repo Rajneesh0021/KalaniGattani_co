@@ -62,7 +62,7 @@ const OtpDialog = styled.div`
 
 // Component
 const LoginSignupPop = () => {
-  const { login } = useContext(AuthContext); // Use AuthContext for login
+  const { login } = useContext(AuthContext);
   const [mobileNumber, setMobileNumber] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
@@ -75,18 +75,17 @@ const LoginSignupPop = () => {
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
-    if (otp === '1234') {  // Replace with actual OTP verification logic
-      // Create user data based on phone number
-      const userData = {
+    if (otp === '1234') {  
+        const userData = {
         name: mobileNumber,
         phone: mobileNumber,
         email: `${mobileNumber}@KGC.com`,
       };
 
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userData', JSON.stringify(userData)); // Store user data in localStorage
+      localStorage.setItem('userData', JSON.stringify(userData)); 
 
-      login(userData); // Update AuthContext with the logged-in user data
+      login(userData); 
 
       setShowPopup(false);
       Swal.fire({

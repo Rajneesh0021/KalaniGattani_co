@@ -3,6 +3,7 @@ import { MdClose, MdInfoOutline } from 'react-icons/md';
 import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
 import Swal from 'sweetalert2';
+import LoginSignupPop from './LoginSignupPop';
 const PopupOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -106,7 +107,7 @@ const ButtonGroup = styled.div`
 const TabButton = styled.button`
   flex: 1;
   padding: 10px;
-  background-color: ${(props) => (props.active ? '#007bff' : '#f1f1f1')};
+  background-color: ${(props) => (props.active ? '#311B92' : '#f1f1f1')};
   color: ${(props) => (props.active ? '#fff' : '#000')};
   border: none;
   border-radius: 5px;
@@ -124,7 +125,7 @@ const ContentBox = styled.div`
 `;
 
 const RegisterButton = styled.button`
-  background-color: #007bff;
+  background-color: #311B92;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -146,7 +147,7 @@ const VideoPopup = styled.div`
   z-index: 1100;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   max-width: 600px;
 `;
 
@@ -190,7 +191,7 @@ const ServiceDescPopup = ({ selectedService, setSelectedService }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [showInfoPopup, setShowInfoPopup] = useState(false);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
-
+  const [showLoginSignupPop, setShowLoginSignupPop] = useState(false);
   const closePopup = () => {
     setSelectedService(null);
   };
@@ -323,7 +324,7 @@ const ServiceDescPopup = ({ selectedService, setSelectedService }) => {
 
           <ContentBox>{renderContent()}</ContentBox>
 
-          <RegisterButton onClick={()=>{ if(isLoggedIn){handleRegisterClick()}else{alert('Loggin to Register')}}}>Register</RegisterButton>
+          <RegisterButton onClick={()=>{ if(isLoggedIn){handleRegisterClick()}else{setShowLoginSignupPop(true); }}}>Register</RegisterButton>
         </Popup>
       </PopupOverlay>
 
@@ -341,6 +342,7 @@ const ServiceDescPopup = ({ selectedService, setSelectedService }) => {
           </VideoPopup>
         </PopupOverlay>
       )}
+      {showLoginSignupPop && <LoginSignupPop />}
     </>
   );
 };

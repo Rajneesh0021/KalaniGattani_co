@@ -20,7 +20,7 @@ const SectionTwo = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
+  
   background-image: url('./assets/nonLoginComplaince.svg');
   background-size: cover;
   background-position: center;

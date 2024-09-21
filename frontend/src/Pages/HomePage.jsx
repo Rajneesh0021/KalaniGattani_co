@@ -22,7 +22,7 @@ const SectionsWrapper = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     flex-direction: column;
   }
 `;

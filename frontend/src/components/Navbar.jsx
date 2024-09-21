@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import './Navbar.css';
+import './css/Navbar.css';
 import { FaUser } from 'react-icons/fa';
 import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
@@ -8,7 +8,7 @@ import SubMenu from './SubMenu';
 
 const NavbarContainer = styled.div`
   position: fixed;
-  height: 4em;
+  height: 60px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -50,9 +50,9 @@ const ProfileDropdown = styled.div`
 `;
 
 const Navbar = () => {
-  const { isLoggedIn } = useContext(AuthContext); // Use AuthContext
-  const [showLogin, setShowLogin] = useState(false); // For login popup
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false); // For profile dropdown
+  const { isLoggedIn } = useContext(AuthContext); 
+  const [showLogin, setShowLogin] = useState(false); 
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false); 
   const dropdownRef = useRef(null); // Ref for the dropdown
 
   // Close the dropdown if clicked outside
