@@ -207,24 +207,7 @@ const AddServiceModal = ({ showModal, closeModal, isEditing, handleSaveService }
           onChange={(e) => setBenefits(e.target.value)}
         />
 
-        {/* FAQ Section */}
-        <h4>FAQs</h4>
-        {faqs.map((faq, index) => (
-          <div key={index}>
-            <ModalInput
-              type="text"
-              placeholder="FAQ Question"
-              value={faq.question}
-              onChange={(e) => handleChangeFAQ(index, 'question', e.target.value)}
-            />
-            <ModalTextarea
-              placeholder="FAQ Answer"
-              value={faq.answer}
-              onChange={(e) => handleChangeFAQ(index, 'answer', e.target.value)}
-            />
-          </div>
-        ))}
-        <AddButton onClick={handleAddFAQ}>Add FAQ</AddButton>
+       
 
         {/* Variant Section */}
         <h4>Variants</h4>
@@ -278,7 +261,24 @@ const AddServiceModal = ({ showModal, closeModal, isEditing, handleSaveService }
           </div>
         ))}
         <AddButton onClick={handleAddVariant}>Add Variant</AddButton>
-
+ {/* FAQ Section */}
+ <h4>FAQs</h4>
+        {faqs.map((faq, index) => (
+          <div key={index}>
+            <ModalInput
+              type="text"
+              placeholder="FAQ Question"
+              value={faq.question}
+              onChange={(e) => handleChangeFAQ(index, 'question', e.target.value)}
+            />
+            <ModalTextarea
+              placeholder="FAQ Answer"
+              value={faq.answer}
+              onChange={(e) => handleChangeFAQ(index, 'answer', e.target.value)}
+            />
+          </div>
+        ))}
+        <AddButton onClick={handleAddFAQ}>Add FAQ</AddButton>
         <ModalButton onClick={handleSave}>Save Service</ModalButton>
       </ModalContent>
     </ModalOverlay>

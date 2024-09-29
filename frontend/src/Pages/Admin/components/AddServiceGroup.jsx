@@ -63,37 +63,16 @@ const CloseButton = styled.button`
   }
 `;
 
-const AddButton = styled.button`
-  margin-top: 5px;
-  background-color: #0288d1;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0277bd;
-  }
-`;
 
-const AddServiceGroupModal = ({ showSGModal, closeModal, handleSaveGroup }) => {
+
+const AddServiceGroupModal = ({ showSGModal, closeSGModal, handleSaveGroup, isEditing }) => {
   const [groupName, setGroupName] = useState('');
-  const [services, setServices] = useState([{ serviceName: '', description: '' }]);
 
-  const handleAddService = () => {
-    setServices([...services, { serviceName: '', description: '' }]);
-  };
-
-  const handleChangeService = (index, field, value) => {
-    const updatedServices = [...services];
-    updatedServices[index][field] = value;
-    setServices(updatedServices);
-  };
 
   const handleSave = () => {
     const serviceGroupData = {
       groupName,
-      services,
+    
     };
     handleSaveGroup(serviceGroupData); // Pass data to parent for saving
   };
@@ -103,8 +82,8 @@ const AddServiceGroupModal = ({ showSGModal, closeModal, handleSaveGroup }) => {
   return (
     <ModalOverlay>
       <ModalContent>
-        <CloseButton onClick={closeModal}>Close</CloseButton>
-        <ModalTitle>Add Service Group</ModalTitle>
+        <CloseButton onClick={closeSGModal}>Close</CloseButton>
+        <ModalTitle>{isEditing ? 'Edit Service Group' : 'Add Service Group'}</ModalTitle>
 
         <ModalInput
           type="text"
@@ -113,24 +92,7 @@ const AddServiceGroupModal = ({ showSGModal, closeModal, handleSaveGroup }) => {
           onChange={(e) => setGroupName(e.target.value)}
         />
 
-        <h4>Services</h4>
-        {services.map((service, index) => (
-          <div key={index}>
-            <ModalInput
-              type="text"
-              placeholder="Service Name"
-              value={service.serviceName}
-              onChange={(e) => handleChangeService(index, 'serviceName', e.target.value)}
-            />
-            <ModalInput
-              type="text"
-              placeholder="Service Description"
-              value={service.description}
-              onChange={(e) => handleChangeService(index, 'description', e.target.value)}
-            />
-          </div>
-        ))}
-        <AddButton onClick={handleAddService}>Add Service</AddButton>
+        
 
         <ModalButton onClick={handleSave}>Save Service Group</ModalButton>
       </ModalContent>

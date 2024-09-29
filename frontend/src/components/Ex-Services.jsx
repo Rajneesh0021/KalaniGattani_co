@@ -3,18 +3,45 @@ import { useSearchParams } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa'; // Icon for arrow
 import ServiceDescPopup from './ServiceDescPopup';
 import styles from './css/ExServices.module.css'; // Import CSS Module
-import { individual, business } from '../data/data';
+import axios from 'axios'; // Import axios for API requests
 
 const ExServices = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedService, setSelectedService] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredServices, setFilteredServices] = useState([]);
+  const [services, setServices] = useState([]); // State to hold fetched services
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   // Get the current 'type' from the URL params (either 'individual' or 'business')
   const type = searchParams.get('type') || 'individual'; 
 
-  const services = type === 'individual' ? individual : business;
+  // Fetch services from the API
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/service`); 
+      setServices(response.data.services);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching services:', err);
+      setError('Failed to load services');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchServices();
+  }, [type]); // Fetch services when the type changes
+
+  useEffect(() => {
+    // Filter services based on the search query
+    const lowercasedQuery = searchQuery.toLowerCase();
+    const filtered = services.filter(service =>
+      service.text.toLowerCase().includes(lowercasedQuery)
+    );
+    setFilteredServices(filtered);
+  }, [searchQuery, services]);
 
   const handleButtonClick = (selectedType) => {
     setSearchParams({ type: selectedType });
@@ -28,14 +55,13 @@ const ExServices = () => {
     setSearchQuery(query);
   };
 
-  useEffect(() => {
-    // Filter services based on the search query and type
-    const lowercasedQuery = searchQuery.toLowerCase();
-    const filtered = services.filter(service =>
-      service.text.toLowerCase().includes(lowercasedQuery)
-    );
-    setFilteredServices(filtered);
-  }, [searchQuery, services]);
+  if (loading) {
+    return <div>Loading services...</div>; // Loading state
+  }
+
+  if (error) {
+    return <div>{error}</div>; // Error state
+  }
 
   return (
     <div className={styles.sectionOne}>

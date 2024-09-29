@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 export const AuthContext = createContext();
-
+// https://kalanigattani-co.onrender.com
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
@@ -18,16 +19,19 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setIsLoggedIn(true);
-    setUser(userData);
+    setUser(userData.user);
     localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem('usertoken',(userData.token));
+    localStorage.setItem('userData', JSON.stringify(userData.user));
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUser(null);
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('usertoken');
     localStorage.removeItem('userData');
+
     Swal.fire({
       title: 'Logged Out',
       text: 'You have been logged out successfully.',

@@ -49,7 +49,7 @@ const MainContent = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding-top: 80px; /* To avoid overlap with sidebar */
+    padding: 20px 0 0 0; 
   }
 `;
 

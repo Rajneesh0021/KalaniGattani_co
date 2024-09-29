@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import AddServiceModal from './AddServiceModal'; // Assuming you have a modal component for editing
+import axios from 'axios'; // Import axios for API requests
+import AddServiceModal from './AddServiceModal'; 
+import AddServiceGroupModal from './AddServiceGroup';
 
 // Styled components
 const Container = styled.div`
@@ -66,27 +68,37 @@ const ActionButton = styled.button`
 
 // Component
 const ServiceManagement = () => {
-  // Dummy data for services and service groups
-  const initialServices = [
-    { id: 1, name: 'Service 1' },
-    { id: 2, name: 'Service 2' },
-    { id: 3, name: 'Service 3' },
-  ];
-
-  const initialServiceGroups = [
-    { id: 1, name: 'Service Group 1' },
-    { id: 2, name: 'Service Group 2' },
-    { id: 3, name: 'Service Group 3' },
-  ];
-
-  const [services, setServices] = useState(initialServices);
-  const [serviceGroups, setServiceGroups] = useState(initialServiceGroups);
+  const [services, setServices] = useState([]);
+  const [serviceGroups, setServiceGroups] = useState([]);
   const [searchServiceTerm, setSearchServiceTerm] = useState('');
   const [searchServiceGroupTerm, setSearchServiceGroupTerm] = useState('');
   const [editService, setEditService] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showSGModal, setShowSGModal] = useState(false);
 
-  // Filtered services based on search term
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get('/api/service'); // Adjust the endpoint
+        setServices(response.data);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
+
+    const fetchServiceGroups = async () => {
+      try {
+        const response = await axios.get('/api/service-groups'); // Adjust the endpoint
+        setServiceGroups(response.data);
+      } catch (error) {
+        console.error('Error fetching service groups:', error);
+      }
+    };
+
+    fetchServices();
+    fetchServiceGroups();
+  }, []);
+
   const filteredServices = services.filter(service =>
     service.name.toLowerCase().includes(searchServiceTerm.toLowerCase())
   );
@@ -97,28 +109,61 @@ const ServiceManagement = () => {
 
   const handleEditService = (service) => {
     setEditService(service);
-    setShowModal(true); // Open modal on edit
+    setShowModal(true);
   };
 
-  const handleDeleteService = (id, isGroup = false) => {
-    if (isGroup) {
-      setServiceGroups(serviceGroups.filter(group => group.id !== id));
-    } else {
-      setServices(services.filter(service => service.id !== id));
+  const handleEditSG = () => {
+    setShowSGModal(true);
+  };
+
+  const handleDeleteService = async (id, isGroup = false) => {
+    try {
+      if (isGroup) {
+        await axios.delete(`/api/service-groups/${id}`); // Adjust the endpoint
+        setServiceGroups(serviceGroups.filter(group => group.id !== id));
+      } else {
+        await axios.delete(`/api/services/${id}`); // Adjust the endpoint
+        setServices(services.filter(service => service.id !== id));
+      }
+    } catch (error) {
+      console.error('Error deleting service:', error);
     }
   };
 
-  const handleSaveService = (updatedService) => {
-    setServices(services.map(service =>
-      service.id === updatedService.id ? updatedService : service
-    ));
+  const handleSaveService = async (updatedService) => {
+    try {
+      const response = await axios.put(`/api/services/${updatedService.id}`, updatedService); // Adjust the endpoint
+      setServices(services.map(service =>
+        service.id === updatedService.id ? response.data : service
+      ));
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error updating service:', error);
+    }
+  };
+
+  const handleSaveGroup = async (groupData) => {
+    try {
+      const response = await axios.post('/api/service-groups', groupData); // Adjust the endpoint
+      setServiceGroups((prevGroups) => [...prevGroups, response.data]);
+      setShowSGModal(false);
+    } catch (error) {
+      console.error('Error adding service group:', error);
+    }
+  };
+
+  const closeSGModal = () => {
+    setShowSGModal(false);
+  };
+
+  const closeModal = () => {
     setShowModal(false);
   };
 
   return (
     <Container>
-       {/* Service Groups Section */}
-       <Section>
+      {/* Service Groups Section */}
+      <Section>
         <h3>Service Groups</h3>
         <SearchInput
           type="text"
@@ -126,13 +171,12 @@ const ServiceManagement = () => {
           value={searchServiceGroupTerm}
           onChange={(e) => setSearchServiceGroupTerm(e.target.value)}
         />
-
         <ServiceGroupList>
           {filteredServiceGroups.map((group) => (
             <ServiceItem key={group.id}>
               {group.name}
               <ServiceActions>
-                <ActionButton className="edit" onClick={() => handleEditService(group)}>
+                <ActionButton className="edit" onClick={() => handleEditSG(group)}>
                   Edit
                 </ActionButton>
                 <ActionButton className="delete" onClick={() => handleDeleteService(group.id, true)}>
@@ -143,6 +187,7 @@ const ServiceManagement = () => {
           ))}
         </ServiceGroupList>
       </Section>
+
       {/* Services Section */}
       <Section>
         <h3>Services</h3>
@@ -152,7 +197,6 @@ const ServiceManagement = () => {
           value={searchServiceTerm}
           onChange={(e) => setSearchServiceTerm(e.target.value)}
         />
-
         <ServiceList>
           {filteredServices.map((service) => (
             <ServiceItem key={service.id}>
@@ -170,15 +214,23 @@ const ServiceManagement = () => {
         </ServiceList>
       </Section>
 
-     
-
-      {/* Modal for editing */}
+      {/* Modal for editing services */}
       {showModal && (
         <AddServiceModal
           showModal={showModal}
           isEditing={true}
           service={editService}
+          closeModal={closeModal}
           handleSaveService={handleSaveService}
+        />
+      )}
+
+      {/* Modal for adding service group */}
+      {showSGModal && (
+        <AddServiceGroupModal
+          showSGModal={showSGModal} 
+          closeSGModal={closeSGModal}
+          handleSaveGroup={handleSaveGroup}
         />
       )}
     </Container>

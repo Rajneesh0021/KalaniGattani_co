@@ -74,7 +74,7 @@ const SubMenu = () => {
       {user && (
         <>
           <ProfileImageContainer>
-            <ProfileImage src={`https://via.placeholder.com/120?text=${user.name.charAt(0)}`} alt="Profile" />
+            <ProfileImage src={`https://via.placeholder.com/120?text=${user.fullname.charAt(0)}`} alt="Profile" />
             <PencilIcon />
           </ProfileImageContainer>
 

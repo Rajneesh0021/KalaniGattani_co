@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import axios from 'axios'
 const FAQsContainer = styled.div`
   padding: 20px;
   max-width: 800px;
@@ -119,25 +119,25 @@ const Button = styled.button`
 `;
 
 const ProfileSection = () => {
-  const [activeForm, setActiveForm] = useState('personal'); // To track which form is active
+  const [activeForm, setActiveForm] = useState('personal'); 
   const [formData, setFormData] = useState({
-    name: '',
+    fullname: '',
     dob: '',
     gender: '',
     email: '',
-    phone: '',
-    addressLine1: '',
-    addressLine2: '',
-    pinCode: '',
+    phonenumber: '',
+    address1: '',
+    address2: '',
+    pincode: '',
     district: '',
     city: '',
     state: '',
-    aadhar: '',
-    pan: '',
-    profileImage:''
+    pannumber: '',
+    pannumber: '',
+    profileImage: ''
   });
 
-  // Load user data from localStorage when the component mounts
+  
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
@@ -145,27 +145,52 @@ const ProfileSection = () => {
     }
   }, []);
 
-  // Save data to localStorage when the user saves the form
-  const handleSave = () => {
-    localStorage.setItem('userData', JSON.stringify(formData));
-    console.log('Saved Data:', formData);
+ 
+  const handleSave = async () => {
 
-    // Move to the next form or finish process
-    if (activeForm === 'personal') {
-      setActiveForm('address');
-    } else if (activeForm === 'address') {
-      setActiveForm('kyc');
-    } else if (activeForm === 'kyc') {
-      alert('Data saved successfully!');
+
+    try {
+      // API call to save data to backend
+      const token = localStorage.getItem('usertoken'); // Retrieve token from localStorage
+
+const response = await axios.put(
+  'http://localhost:5000/api/user', 
+  formData, 
+  {
+    headers: {
+      Authorization: `${token}`,
+    },
+  }
+);
+
+
+      if (response.data.success) {
+        console.log('Data saved to backend:', response.data);
+        
+        if (activeForm === 'personal') {
+          setActiveForm('address');
+        } else if (activeForm === 'address') {
+          setActiveForm('kyc');
+        } else if (activeForm === 'kyc') {
+          alert('Data saved successfully!');
+        }
+      } else {
+        console.error('Failed to save data:', response.data.message);
+        alert('Failed to save data. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error saving data to backend:', error);
+      alert('Error saving data to the server. Please try again later.');
     }
   };
 
   // Handle form field changes
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value, 
+  });
   };
 
   const renderForm = () => {
@@ -178,8 +203,8 @@ const ProfileSection = () => {
               <label>Full Name</label>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
+                name="fullname"
+                value={formData.fullname}
                 onChange={handleChange}
               />
             </div>
@@ -213,15 +238,15 @@ const ProfileSection = () => {
               <label>Phone</label>
               <input
                 type="tel"
-                name="phone"
-                value={formData.phone}
+                name="phonenumber"
+                value={formData.phonenumber}
                 onChange={handleChange}
-                contentEditable={false}
+                readOnly
               />
             </div>
             <ButtonGroup>
               <Button onClick={() => setActiveForm('')}>Back</Button>
-              <Button onClick={handleSave}>Save & Next</Button>
+              <Button type="button" onClick={handleSave}>Save & Next</Button>
             </ButtonGroup>
           </form>
         );
@@ -234,7 +259,7 @@ const ProfileSection = () => {
               <input
                 type="text"
                 name="addressLine1"
-                value={formData.addressLine1}
+                value={formData.address1}
                 onChange={handleChange}
               />
             </div>
@@ -243,7 +268,7 @@ const ProfileSection = () => {
               <input
                 type="text"
                 name="addressLine2"
-                value={formData.addressLine2}
+                value={formData.address2}
                 onChange={handleChange}
               />
             </div>
@@ -252,7 +277,7 @@ const ProfileSection = () => {
               <input
                 type="number"
                 name="pinCode"
-                value={formData.pinCode}
+                value={formData.pincode}
                 onChange={handleChange}
               />
             </div>
@@ -285,7 +310,7 @@ const ProfileSection = () => {
             </div>
             <ButtonGroup>
               <Button onClick={() => setActiveForm('')}>Back</Button>
-              <Button onClick={handleSave}>Save & Next</Button>
+              <Button type="button" onClick={handleSave}>Save & Next</Button>
             </ButtonGroup>
           </form>
         );
@@ -298,7 +323,7 @@ const ProfileSection = () => {
               <input
                 type="text"
                 name="aadhar"
-                value={formData.aadhar}
+                value={formData.adharnumber}
                 onChange={handleChange}
               />
             </div>
@@ -307,17 +332,18 @@ const ProfileSection = () => {
               <input
                 type="text"
                 name="pan"
-                value={formData.pan}
+                value={formData.pannumber}
                 onChange={handleChange}
               />
             </div>
             <ButtonGroup>
               <Button onClick={() => setActiveForm('')}>Back</Button>
-              <Button onClick={handleSave}>Save</Button>
+              <Button type="button" onClick={handleSave}>Save</Button>
             </ButtonGroup>
           </form>
         );
-      
+      default:
+        return null;
     }
   };
 
@@ -335,3 +361,4 @@ const ProfileSection = () => {
 };
 
 export default ProfileSection;
+

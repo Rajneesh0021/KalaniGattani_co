@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
 import Swal from 'sweetalert2';
-
+import axios from 'axios'
 // Styled Components
 const Overlay = styled.div`
   position: fixed;
@@ -59,6 +59,33 @@ const Button = styled.button`
 const OtpDialog = styled.div`
   margin-top: 20px;
 `;
+// Styles
+
+const MobileForm = styled.form`
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+  text-align: center;
+`;
+
+const OtpForm = styled.form`
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+  text-align: center;
+`;
+
+
+
+
+
+
+
+
 
 // Component
 const LoginSignupPop = () => {
@@ -68,37 +95,79 @@ const LoginSignupPop = () => {
   const [otp, setOtp] = useState('');
   const [showPopup, setShowPopup] = useState(true);
 
-  const handleMobileSubmit = (e) => {
+  // Handle sending mobile number to request OTP
+  const handleMobileSubmit = async (e) => {
     e.preventDefault();
-    setOtpSent(true); // OTP is sent logic
-  };
-
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
-    if (otp === '1234') {  
-        const userData = {
-        name: mobileNumber,
-        phone: mobileNumber,
-        email: `${mobileNumber}@KGC.com`,
-      };
-
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userData', JSON.stringify(userData)); 
-
-      login(userData); 
-
-      setShowPopup(false);
-      Swal.fire({
-        title: 'Login Successful!',
-        text: 'Welcome back, you have logged in successfully.',
-        icon: 'success',
-        confirmButtonText: 'Continue',
-        confirmButtonColor: '#4caf50',
-      });
-    } else {
+    try {
+      // Make an API call to request OTP
+      const response = await axios.post('http://localhost:5000/api/user/login', { phonenumber: mobileNumber });
+      console.log(response)
+      if (response.data.success) {
+        setOtpSent(true);
+        Swal.fire({
+          title: 'OTP Sent!',
+          text: 'Check your phone for the OTP.',
+          icon: 'info',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#4caf50',
+        });
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: response.data.message || 'Failed to send OTP.',
+          icon: 'error',
+          confirmButtonText: 'Retry',
+          confirmButtonColor: '#f44336',
+        });
+      }
+    } catch (error) {
       Swal.fire({
         title: 'Error!',
-        text:'Wrong OTP !',
+        text: 'There was an error sending the OTP. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'Retry',
+        confirmButtonColor: '#f44336',
+      });
+    }
+  };
+
+  // Handle OTP submission for verification
+  const handleOtpSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/verifyOtp', {
+        phonenumber: mobileNumber,
+        otp,
+      });
+
+      if (response.data.success) {
+        const userData = response.data;
+        console.log(response.data)
+
+      
+        login(userData);
+
+        setShowPopup(false);
+        Swal.fire({
+          title: 'Login Successful!',
+          text: 'Welcome back, you have logged in successfully.',
+          icon: 'success',
+          confirmButtonText: 'Continue',
+          confirmButtonColor: '#4caf50',
+        });
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: response.data.message || 'Invalid OTP.',
+          icon: 'error',
+          confirmButtonText: 'Retry',
+          confirmButtonColor: '#f44336',
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an error verifying the OTP. Please try again later.',
         icon: 'error',
         confirmButtonText: 'Retry',
         confirmButtonColor: '#f44336',
@@ -114,34 +183,33 @@ const LoginSignupPop = () => {
     <>
       {showPopup && (
         <Overlay>
-          <LoginForm onSubmit={otpSent ? handleOtpSubmit : handleMobileSubmit}>
-            <CloseButton onClick={closePopup}>×</CloseButton>
-            {!otpSent ? (
-              <>
-                <h3>Enter Mobile Number</h3>
-                <InputField
-                  type="tel"
-                  placeholder="Enter your mobile number"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                />
-                <Button type="submit">Send OTP</Button>
-              </>
-            ) : (
-              <>
-                <h3>Enter OTP</h3>
-                <InputField
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
-                <OtpDialog>
-                  <Button type="submit">Confirm OTP</Button>
-                </OtpDialog>
-              </>
-            )}
-          </LoginForm>
+          {!otpSent ? (
+            <MobileForm onSubmit={handleMobileSubmit}>
+              <CloseButton onClick={closePopup}>×</CloseButton>
+              <h3>Enter Mobile Number</h3>
+              <InputField
+                type="tel"
+                placeholder="Enter your mobile number"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+              />
+              <Button type="submit">Send OTP</Button>
+            </MobileForm>
+          ) : (
+            <OtpForm onSubmit={handleOtpSubmit}>
+              <CloseButton onClick={closePopup}>×</CloseButton>
+              <h3>Enter OTP</h3>
+              <InputField
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <OtpDialog>
+                <Button type="submit">Confirm OTP</Button>
+              </OtpDialog>
+            </OtpForm>
+          )}
         </Overlay>
       )}
     </>

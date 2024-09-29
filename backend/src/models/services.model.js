@@ -36,7 +36,7 @@ const faqSchema = new Schema({
 
 // Define the Service schema
 const serviceSchema = new Schema({
-  category_id: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+  category_id: { type: Schema.Types.ObjectId, ref: 'ServiceGroup', required: true },
   name: { type: String, required: true },
   constitution_types: [{ type: String, enum: ['Individual', 'Partnership', 'Company'], required: true }],
   heading: { type: String, required: true },
