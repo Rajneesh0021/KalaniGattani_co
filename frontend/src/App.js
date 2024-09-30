@@ -14,6 +14,7 @@ import TicketStatusPage from './Pages/StatusPage';
 import MessagePage from './Pages/MessagePage';
 import PaymentPage from './Pages/PaymentPage';
 import AdminDashboard from './Pages/Admin/admindashboard';
+import ConsultantDashboard from './Pages/consultant/ConsultantDashboard';
 
 // Conditionally styled component for content
 const Content = styled.div`
@@ -30,7 +31,7 @@ const Content = styled.div`
 // Helper component to conditionally render based on route
 const Layout = ({ children }) => {
   const location = useLocation();
-  const isAdminDashboard = location.pathname.includes('/dashboard'); // Check if the current path includes '/dashboard'
+  const isAdminDashboard = location.pathname.includes('/dashboard') || location.pathname.includes('/consultant') ; // Check if the current path includes '/dashboard'
 
   return (
     <>
@@ -57,6 +58,7 @@ const App = () => {
           <Route path='/message/:ticketId' element={<MessagePage />} />
           <Route path='/paynow/:ticketId' element={<PaymentPage />} />
           <Route path='/dashboard' element={<AdminDashboard />} />
+          <Route path='/consultant' element={<ConsultantDashboard/>} />
         </Routes>
       </Layout>
     </Router>

@@ -20,10 +20,10 @@ const Title = styled.h3`
 
 const SectionWrapper = styled.div`
   margin-top: 2em;
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
   padding: 2em;
   border-radius: 15px;
-  background: #ffffff;
+  // background: #ffffff;
   box-shadow: -5px 5px 38px #d9d9d9, 5px -5px 38px #ffffff;
 `;
 
@@ -44,7 +44,7 @@ const EmployeeCard = styled.div`
   flex: 1 1 calc(25% - 20px); /* 4 cards in a row on large screens */
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  // background-color: #ffffff;
   border-radius: 10px;
   box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -83,7 +83,7 @@ const EmployeePosition = styled.p`
 `;
 
 const LinkedInIcon = styled.a`
-  color: #0077b5;
+  // color: #0077b5;
   margin-top: 5px;
   font-size: 24px;
 `;

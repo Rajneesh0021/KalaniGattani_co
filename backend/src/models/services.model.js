@@ -13,7 +13,7 @@ const stepSchema = new Schema({
 
 // Define the Frequency schema
 const frequencySchema = new Schema({
-  type: { type: String, enum: ['Monthly', 'Quarterly'], required: true },
+  type: { type: String, required: true },
   service_ref_start_date: { type: Date, required: true },
   compliance_start_date: { type: Date, required: true },
   compliance_days: { type: Number, required: true }

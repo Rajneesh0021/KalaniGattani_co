@@ -179,11 +179,11 @@
   box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1), 5px -5px 20px rgba(255, 255, 255, 0.5);
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  
 }
 
 .expertBox:hover {
-  transform: scale(1.05);
+ 
   box-shadow: -5px 5px 30px rgba(0, 0, 0, 0.2), 5px -5px 30px rgba(255, 255, 255, 0.7);
 }
 

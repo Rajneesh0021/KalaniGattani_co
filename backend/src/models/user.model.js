@@ -7,6 +7,7 @@ const userSchema = new Schema({
   phonenumber: { type: String, required: true, unique: true },
   gender: { type: String, enum: ['Male', 'Female', 'Other'] },
   dob: { type: Date },
+  isActive:{type:Boolean, default:true},
   address1: { type: String },
   address2: { type: String },
   pincode: { type: String },

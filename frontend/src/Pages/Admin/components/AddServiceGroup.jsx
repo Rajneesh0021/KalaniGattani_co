@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { MdClose } from "react-icons/md";
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -68,32 +68,26 @@ const CloseButton = styled.button`
 const AddServiceGroupModal = ({ showSGModal, closeSGModal, handleSaveGroup, isEditing }) => {
   const [groupName, setGroupName] = useState('');
 
-
   const handleSave = () => {
     const serviceGroupData = {
-      groupName,
-    
+     name: groupName,
     };
-    handleSaveGroup(serviceGroupData); // Pass data to parent for saving
+    handleSaveGroup(serviceGroupData);
   };
 
-  if (!showSGModal) return null; // Renamed here
+  if (!showSGModal) return null; 
 
   return (
     <ModalOverlay>
       <ModalContent>
-        <CloseButton onClick={closeSGModal}>Close</CloseButton>
+        <CloseButton onClick={closeSGModal}><MdClose/></CloseButton>
         <ModalTitle>{isEditing ? 'Edit Service Group' : 'Add Service Group'}</ModalTitle>
-
         <ModalInput
           type="text"
           placeholder="Group Name"
           value={groupName}
           onChange={(e) => setGroupName(e.target.value)}
         />
-
-        
-
         <ModalButton onClick={handleSave}>Save Service Group</ModalButton>
       </ModalContent>
     </ModalOverlay>

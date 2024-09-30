@@ -4,6 +4,7 @@ import { FaArrowRight } from 'react-icons/fa'; // Icon for arrow
 import ServiceDescPopup from './ServiceDescPopup';
 import styles from './css/ExServices.module.css'; // Import CSS Module
 import axios from 'axios'; // Import axios for API requests
+import { fetchData } from '../services/apiServices';
 
 const ExServices = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,18 +16,19 @@ const ExServices = () => {
   const [error, setError] = useState(null); // Error state
 
   // Get the current 'type' from the URL params (either 'individual' or 'business')
-  const type = searchParams.get('type') || 'individual'; 
+  const type = searchParams.get('type') || 'individual';
 
   // Fetch services from the API
   const fetchServices = async () => {
+    setLoading(true); // Set loading state to true before making the request
     try {
-      const response = await axios.get(`http://localhost:5000/api/service`); 
-      setServices(response.data.services);
-      setLoading(false);
+      const response = await fetchData('/service'); // Use your service function
+      setServices(response.services); // Assuming the API returns data in this format
+      setLoading(false); // Set loading state to false when data is loaded
     } catch (err) {
       console.error('Error fetching services:', err);
-      setError('Failed to load services');
-      setLoading(false);
+      setError('Failed to load services'); // Set error state
+      setLoading(false); // Stop the loading animation
     }
   };
 

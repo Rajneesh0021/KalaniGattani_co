@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AuthContext } from '../context/AuthContext'; // Import AuthContext
 import Swal from 'sweetalert2';
 import axios from 'axios'
+import { postData } from '../services/apiServices';
 // Styled Components
 const Overlay = styled.div`
   position: fixed;
@@ -99,10 +100,9 @@ const LoginSignupPop = () => {
   const handleMobileSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make an API call to request OTP
-      const response = await axios.post('http://localhost:5000/api/user/login', { phonenumber: mobileNumber });
-      console.log(response)
-      if (response.data.success) {
+      const response = await postData('/user/login', { phonenumber: mobileNumber });
+
+      if (response.success) {
         setOtpSent(true);
         Swal.fire({
           title: 'OTP Sent!',
@@ -114,7 +114,7 @@ const LoginSignupPop = () => {
       } else {
         Swal.fire({
           title: 'Error!',
-          text: response.data.message || 'Failed to send OTP.',
+          text: response.message || 'Failed to send OTP.',
           icon: 'error',
           confirmButtonText: 'Retry',
           confirmButtonColor: '#f44336',
@@ -135,21 +135,19 @@ const LoginSignupPop = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/user/verifyOtp', {
+      const response = await postData('/user/verifyOtp', {
         phonenumber: mobileNumber,
         otp,
       });
 
-      if (response.data.success) {
-        const userData = response.data;
-        console.log(response.data)
-
-      
+      if (response.success) {
+        const userData = response;
+        console.log(userData)
         login(userData);
 
         setShowPopup(false);
         Swal.fire({
-          title: 'Login Successful!',
+          title: response.message,
           text: 'Welcome back, you have logged in successfully.',
           icon: 'success',
           confirmButtonText: 'Continue',
@@ -158,7 +156,7 @@ const LoginSignupPop = () => {
       } else {
         Swal.fire({
           title: 'Error!',
-          text: response.data.message || 'Invalid OTP.',
+          text: response.message || 'Invalid OTP.',
           icon: 'error',
           confirmButtonText: 'Retry',
           confirmButtonColor: '#f44336',
@@ -178,7 +176,6 @@ const LoginSignupPop = () => {
   const closePopup = () => {
     setShowPopup(false);
   };
-
   return (
     <>
       {showPopup && (

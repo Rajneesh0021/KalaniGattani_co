@@ -54,7 +54,7 @@ const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false); 
   const [showProfileDropdown, setShowProfileDropdown] = useState(false); 
   const dropdownRef = useRef(null); // Ref for the dropdown
-
+ 
   // Close the dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -77,10 +77,14 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <div className="logo"><img src="../icon.png" alt="" /></div>
+      <div className='profile'>
+     
       <div className="circlecover">
         {isLoggedIn ? (
           <div>
+            
             <UserIcon id="user-icon" onClick={() => setShowProfileDropdown(!showProfileDropdown)} />
+         
             {showProfileDropdown && (
               <ProfileDropdown ref={dropdownRef}>
                 <SubMenu />
@@ -90,6 +94,7 @@ const Navbar = () => {
         ) : (
           <UserIcon onClick={() => setShowLogin(!showLogin)} />
         )}
+      </div>
       </div>
       {showLogin && !isLoggedIn && <LoginSignupPop />}
     </NavbarContainer>

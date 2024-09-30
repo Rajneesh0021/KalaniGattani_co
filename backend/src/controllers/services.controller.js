@@ -1,8 +1,11 @@
 const Service = require('../models/services.model'); // Adjust the path as needed
 
 // Create a new service
+// Service validation failed: variants.0.frequency.0.service_ref_start_date: Path `service_ref_start_date` is required., variants.0.frequency.0.compliance_start_date: Path `compliance_start_date` is required., variants.0.frequency.0.compliance_days: Path `compliance_days` is required."
+
 exports.createService = async (req, res) => {
   try {
+    console.log(req.body)
     const service = new Service(req.body);
     await service.save();
     res.status(201).json({ service, success: true });

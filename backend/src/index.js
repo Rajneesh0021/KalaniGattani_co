@@ -9,6 +9,7 @@ const {MONGODB_URI,PORT}=process.env;
 
 // routes
 const userRoutes = require("./routes/user.route");
+const consultantRoutes =require('./routes/consultant.route')
 const serviceRoutes =require('./routes/services.route')
 const servicegroupRoutes =require('./routes/servicesgroup.route')
 // init express app
@@ -34,7 +35,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/service", serviceRoutes);
 app.use("/api/servicegroup", servicegroupRoutes);
-
+app.use("/api/consultant", consultantRoutes);
 
 
 async function main() {

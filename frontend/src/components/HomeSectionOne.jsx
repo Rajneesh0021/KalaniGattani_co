@@ -60,7 +60,7 @@ const HomeSectionOne = () => {
           ) : (
             <>
               <div className={styles.welcomeText}>
-                <h3 className={styles.heading}>Welcome, {user.name}</h3>
+                <h3 className={styles.heading}>Welcome, {user.fullname}</h3>
                 <p className={styles.subHeading}>
                   You have <strong>{activeServicesCount}</strong> ongoing services.
                 </p>

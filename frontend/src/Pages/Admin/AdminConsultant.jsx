@@ -1,9 +1,10 @@
-// ConsultantPage.js
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
+import { deleteData, fetchData, postData, updateData } from '../../services/apiServices';
 
-// Styled Components
+// Styled Components (same as before)
 const ConsultantContainer = styled.div`
   padding: 20px;
 `;
@@ -83,7 +84,7 @@ const ActionButton = styled.button`
   }
 `;
 
-// Modal Components
+// Modal Components (same as before)
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -130,18 +131,31 @@ const ModalButton = styled.button`
 `;
 
 const AdminConsultant = () => {
-  const [consultants, setConsultants] = useState([
-    { id: 1, name: 'Consultant 1' },
-    { id: 2, name: 'Consultant 2' },
-    { id: 3, name: 'Consultant 3' },
-  ]);
-  const [filteredConsultants, setFilteredConsultants] = useState(consultants);
+  const [consultants, setConsultants] = useState([]);
+  const [filteredConsultants, setFilteredConsultants] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentConsultant, setCurrentConsultant] = useState(null);
-  const [newConsultantName, setNewConsultantName] = useState('');
+  const [newConsultant, setNewConsultant] = useState({ name: '', email: '', password: '' });
 
+  useEffect(() => {
+    fetchConsultants();
+  }, []);
+
+  // Fetch consultants from API
+  const fetchConsultants = async () => {
+    try {
+      const response = await fetchData('/consultant');
+      console.log(response)
+      setConsultants(response.consultants);
+      setFilteredConsultants(response.consultants);
+    } catch (error) {
+      console.error('Error fetching consultants', error);
+    }
+  };
+
+  // Filter consultants based on search term
   useEffect(() => {
     const filtered = consultants.filter((consultant) =>
       consultant.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -149,32 +163,53 @@ const AdminConsultant = () => {
     setFilteredConsultants(filtered);
   }, [searchTerm, consultants]);
 
+  // Handle opening modal for adding a new consultant
   const handleAddConsultant = () => {
     setShowModal(true);
     setIsEditing(false);
-    setNewConsultantName('');
+    setNewConsultant({ name: '', email: '', password: '' });
   };
 
+  // Handle opening modal for editing a consultant
   const handleEditConsultant = (consultant) => {
     setShowModal(true);
     setIsEditing(true);
     setCurrentConsultant(consultant);
-    setNewConsultantName(consultant.name);
+    setNewConsultant({ name: consultant.name, email: consultant.email, password: '' });
   };
 
-  const handleDeleteConsultant = (consultantId) => {
-    const updatedConsultants = consultants.filter((consultant) => consultant.id !== consultantId);
-    setConsultants(updatedConsultants);
+  // Handle deleting a consultant
+  const handleDeleteConsultant = async (consultantId) => {
+    try {
+      await deleteData(`/consultant/${consultantId}`);
+      setConsultants(consultants.filter((consultant) => consultant._id !== consultantId));
+    } catch (error) {
+      console.error('Error deleting consultant', error);
+    }
   };
 
-  const handleSaveConsultant = () => {
+  // Handle saving a new or updated consultant
+  const handleSaveConsultant = async () => {
     if (isEditing) {
-      setConsultants(consultants.map((consultant) =>
-        consultant.id === currentConsultant.id ? { ...consultant, name: newConsultantName } : consultant
-      ));
+      try {
+        await updateData(`/consultant/${currentConsultant._id}`, newConsultant);
+        setConsultants(
+          consultants.map((consultant) =>
+            consultant._id === currentConsultant._id ? { ...consultant, ...newConsultant } : consultant
+          )
+        );
+      } catch (error) {
+        console.error('Error updating consultant', error);
+      }
     } else {
-      const newConsultant = { id: consultants.length + 1, name: newConsultantName };
-      setConsultants([...consultants, newConsultant]);
+      try {
+        const response = await postData('/consultant', newConsultant);
+        console.log(response)
+        
+        
+      } catch (error) {
+        console.error('Error adding consultant', error);
+      }
     }
     setShowModal(false);
   };
@@ -195,13 +230,13 @@ const AdminConsultant = () => {
 
       <ConsultantList>
         {filteredConsultants.map((consultant) => (
-          <ConsultantItem key={consultant.id}>
+          <ConsultantItem key={consultant._id}>
             {consultant.name}
             <ConsultantActions>
               <ActionButton className="edit" onClick={() => handleEditConsultant(consultant)}>
                 <FaEdit /> Edit
               </ActionButton>
-              <ActionButton className="delete" onClick={() => handleDeleteConsultant(consultant.id)}>
+              <ActionButton className="delete" onClick={() => handleDeleteConsultant(consultant._id)}>
                 <FaTrash /> Delete
               </ActionButton>
             </ConsultantActions>
@@ -217,9 +252,23 @@ const AdminConsultant = () => {
             <ModalInput
               type="text"
               placeholder="Consultant name"
-              value={newConsultantName}
-              onChange={(e) => setNewConsultantName(e.target.value)}
+              value={newConsultant.name}
+              onChange={(e) => setNewConsultant({ ...newConsultant, name: e.target.value })}
             />
+            <ModalInput
+              type="email"
+              placeholder="Consultant email"
+              value={newConsultant.email}
+              onChange={(e) => setNewConsultant({ ...newConsultant, email: e.target.value })}
+            />
+            {!isEditing && (
+              <ModalInput
+                type="password"
+                placeholder="Consultant password"
+                value={newConsultant.password}
+                onChange={(e) => setNewConsultant({ ...newConsultant, password: e.target.value })}
+              />
+            )}
             <ModalButton onClick={handleSaveConsultant}>
               {isEditing ? 'Save Changes' : 'Add Consultant'}
             </ModalButton>

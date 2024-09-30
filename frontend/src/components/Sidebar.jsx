@@ -59,6 +59,7 @@ const SidebarText = styled.span`
 const Sidebar = () => {
   const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
 
+
   return (
     <SidebarContainer>
       <SidebarItem to="/">
