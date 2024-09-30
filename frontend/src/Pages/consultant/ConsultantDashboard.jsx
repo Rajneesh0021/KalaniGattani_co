@@ -49,7 +49,7 @@ const DashboardContainer = styled.div`
 
 const Sidebar = styled.div`
   width: 250px;
-  background: #333;
+  background: #311b92;
   color: white;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@ const SidebarOption = styled.div`
   padding: 20px;
   cursor: pointer;
   &:hover {
-    background: #555;
+    background: #2d2066;
   }
   @media (max-width: 768px) {
     flex: 1;

@@ -40,7 +40,7 @@ const ExServices = () => {
     // Filter services based on the search query
     const lowercasedQuery = searchQuery.toLowerCase();
     const filtered = services.filter(service =>
-      service.text.toLowerCase().includes(lowercasedQuery)
+      service.name.toLowerCase().includes(lowercasedQuery)
     );
     setFilteredServices(filtered);
   }, [searchQuery, services]);
@@ -100,8 +100,8 @@ const ExServices = () => {
             className={styles.serviceCard}
             onClick={() => handleCardClick(service)}
           >
-            <img src={service.img} alt={service.text} />
-            <p>{service.text}</p>
+            <img src={service.img} alt={service.name} />
+            <p>{service.name}</p>
             <FaArrowRight className={styles.arrowIcon} />
           </div>
         ))}
