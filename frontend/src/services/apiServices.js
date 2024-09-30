@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base configuration for Axios
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',  // Update with your backend API URL
+  baseURL: 'https://kalanigattani-co.onrender.com/api',  // Update with your backend API URL
   headers: {
     'Content-Type': 'application/json',
   },
